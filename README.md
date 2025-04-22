@@ -1,6 +1,6 @@
 # IQC (Internal Quality Control) System
 
-![IQC System Overview](images/one.png)
+![IQC System Overview](image/one.png)
 
 This is an Internal Quality Control (IQC) system designed to manage and oversee various aspects of quality control in an organization. It helps in tracking staff details, feedback, and upload resources for quality assurance processes. The system enables administrators (like HODs or team leaders) to manage data efficiently and maintain internal quality standards.
 
