@@ -1,27 +1,29 @@
-# HOD Dashboard System
+# IQC (Internal Quality Control) System
 
-This is a simple HOD (Head of Department) dashboard system designed to manage and oversee staff details, feedback, and upload resources for the department. It provides a central place for the HOD to view and manage staff data and feedback, as well as upload relevant department resources.
+This is an Internal Quality Control (IQC) system designed to manage and oversee various aspects of quality control in an organization. It helps in tracking staff details, feedback, and upload resources for quality assurance processes. The system enables administrators (like HODs or team leaders) to manage data efficiently and maintain internal quality standards.
 
 ## Features
 
-- **Staff Overview**: View all staff details such as usernames, emails, departments, and roles.
-- **Feedback Management**: View feedback submitted by staff with date and content.
-- **Resource Upload**: Upload department-related resources (such as syllabi or guidelines).
-- **User Authentication**: Secure login for HOD with a role-based access control system.
+- **Staff Overview**: View and manage details of all staff members, including usernames, roles, and departments.
+- **Feedback Management**: Allows users to submit and view feedback regarding various internal quality processes.
+- **Resource Upload**: Upload and manage quality control documents and guidelines.
+- **User Authentication**: Secure login for users with role-based access control.
+- **Quality Control Tracking**: Keep track of internal quality processes, feedback, and improvements.
 
 ## Requirements
 
 - PHP 7.0 or higher
-- MySQL
-- Apache or Nginx server
-- Internet connection (for external libraries)
+- MySQL database
+- Apache or Nginx web server
+- Internet connection (for downloading external libraries)
 
 ## Installation
 
 ### 1. Clone the Repository
 
-Clone this repository to your local machine using Git:
+Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/hod-dashboard.git
-cd hod-dashboard
+git clone https://github.com/yourusername/iqc-system.git
+cd iqc-system
+
