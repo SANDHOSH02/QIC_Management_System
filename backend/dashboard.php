@@ -34,6 +34,7 @@ $staffData = $result->fetch_assoc();
       --danger-dark: #b91c1c;
       --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
       --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * {
@@ -47,6 +48,22 @@ $staffData = $result->fetch_assoc();
       background-color: var(--background);
       color: var(--text);
       line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
     .header {
@@ -58,12 +75,14 @@ $staffData = $result->fetch_assoc();
       position: sticky;
       top: 0;
       z-index: 1000;
+      animation: fadeIn 0.5s ease-out;
     }
 
     .header h1 {
       font-size: 2rem;
       font-weight: 700;
       letter-spacing: -0.025em;
+      animation: pulse 2s infinite;
     }
 
     .container {
@@ -83,6 +102,7 @@ $staffData = $result->fetch_assoc();
       position: sticky;
       top: 7rem;
       height: fit-content;
+      animation: slideInLeft 0.5s ease-out;
     }
 
     .sidebar h3 {
@@ -98,7 +118,14 @@ $staffData = $result->fetch_assoc();
 
     .sidebar ul li {
       margin-bottom: 0.75rem;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
+      animation-delay: calc(0.1s * var(--i));
     }
+
+    .sidebar ul li:nth-child(1) { --i: 1; }
+    .sidebar ul li:nth-child(2) { --i: 2; }
+    .sidebar ul li:nth-child(3) { --i: 3; }
 
     .sidebar ul li a {
       display: block;
@@ -107,13 +134,31 @@ $staffData = $result->fetch_assoc();
       color: var(--text-light);
       font-weight: 500;
       border-radius: 8px;
-      transition: all 0.2s ease;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sidebar ul li a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .sidebar ul li a:hover::before {
+      left: 100%;
     }
 
     .sidebar ul li a:hover {
       background: var(--primary);
       color: white;
-      transform: translateX(4px);
+      transform: translateX(8px);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
     }
 
     .main-content {
@@ -122,6 +167,7 @@ $staffData = $result->fetch_assoc();
       border-radius: 12px;
       padding: 2rem;
       box-shadow: var(--shadow);
+      animation: fadeIn 0.5s ease-out;
     }
 
     .main-content h2 {
@@ -129,6 +175,22 @@ $staffData = $result->fetch_assoc();
       font-weight: 600;
       margin-bottom: 1.5rem;
       color: var(--text);
+      position: relative;
+    }
+
+    .main-content h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .main-content h2:hover::after {
+      width: 100px;
     }
 
     .card {
@@ -137,12 +199,20 @@ $staffData = $result->fetch_assoc();
       padding: 1.5rem;
       margin-bottom: 1.5rem;
       box-shadow: var(--shadow);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: var(--transition);
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
     }
 
+    .card:nth-child(1) { animation-delay: 0.2s; }
+    .card:nth-child(2) { animation-delay: 0.3s; }
+    .card:nth-child(3) { animation-delay: 0.4s; }
+    .card:nth-child(4) { animation-delay: 0.5s; }
+
     .card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-8px);
       box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(37, 99, 235, 0.2);
     }
 
     .card h4 {
@@ -150,11 +220,17 @@ $staffData = $result->fetch_assoc();
       font-weight: 600;
       margin-bottom: 1rem;
       color: var(--text);
+      transition: var(--transition);
+    }
+
+    .card h4:hover {
+      color: var(--primary);
     }
 
     .card p {
       color: var(--text-light);
       margin-bottom: 0.75rem;
+      transition: var(--transition);
     }
 
     .card ul {
@@ -167,6 +243,12 @@ $staffData = $result->fetch_assoc();
       margin-bottom: 0.5rem;
       color: var(--text-light);
       padding-left: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .card ul li:hover {
+      color: var(--text);
+      transform: translateX(4px);
     }
 
     .card ul li:before {
@@ -175,6 +257,11 @@ $staffData = $result->fetch_assoc();
       left: 0;
       color: var(--primary);
       font-size: 1.25rem;
+      transition: var(--transition);
+    }
+
+    .card ul li:hover:before {
+      color: var(--primary-dark);
     }
 
     form {
@@ -190,18 +277,25 @@ $staffData = $result->fetch_assoc();
       font-size: 0.875rem;
       color: var(--text);
       background: #f8fafc;
-      transition: border-color 0.2s ease;
+      transition: var(--transition);
+      position: relative;
     }
 
     input[type="file"]:focus, textarea:focus {
       outline: none;
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      transform: scale(1.01);
     }
 
     textarea {
       resize: vertical;
       min-height: 120px;
+      transition: var(--transition);
+    }
+
+    textarea:hover {
+      border-color: var(--primary);
     }
 
     button {
@@ -212,12 +306,30 @@ $staffData = $result->fetch_assoc();
       border-radius: 8px;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+
+    button:hover::before {
+      left: 100%;
     }
 
     button:hover {
       background: var(--primary-dark);
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     }
 
     .logout {
@@ -229,12 +341,30 @@ $staffData = $result->fetch_assoc();
       text-decoration: none;
       border-radius: 8px;
       font-weight: 500;
-      transition: background 0.2s ease, transform 0.2s ease;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logout::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .logout:hover::before {
+      left: 100%;
     }
 
     .logout:hover {
       background: var(--danger-dark);
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
     }
 
     @media (max-width: 768px) {
@@ -254,6 +384,10 @@ $staffData = $result->fetch_assoc();
 
       .main-content h2 {
         font-size: 1.5rem;
+      }
+
+      .card {
+        animation: none;
       }
     }
   </style>
